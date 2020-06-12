@@ -6,13 +6,13 @@
     <div class="user cur-pointer">
       <section>
         <div style="display: flex; align-items: center;">
-          <span style="margin-right: 10px;">{{user.userName}}</span>
+          <span style="margin-right: 10px;">annaroles</span>
           <el-avatar icon="el-icon-user-solid"></el-avatar>
         </div>
         <!-- <div class="user-info">{{user.userName}}</div> -->
         <div class="popover" style="line-height: 20px;">
           <i class="el-icon-s-tools" style="font-size: 20px;"></i>
-          <span @click="doLogout" style="margin-left: 10px; font-size: 16px; cursor: pointer;">退出登录</span>
+          <span  style="margin-left: 10px; font-size: 16px; cursor: pointer;">退出登录</span>
         </div>
       </section>
     </div>
@@ -24,19 +24,19 @@ import {Vue, Component} from 'vue-property-decorator'
 @Component
 export default class HeaderNav extends Vue {
  private userInfo: any = {}
- private get user() {
-   return this.$store.state.auth.user
- }
- private doLogout() {
-   this.$store.dispatch('logout')
- }
+//  private get user() {
+//    return this.$store.state.auth.user
+//  }
+//  private doLogout() {
+//    this.$store.dispatch('logout')
+//  }
 };
 </script>
 
 <style lang="less" scoped>
 .head {
   height: 60px; 
-  background: rgba(255, 255, 255, 1);
+  background: rgb(219, 239, 252);
   padding: 0 40px;
   box-sizing: border-box;
   .logo {

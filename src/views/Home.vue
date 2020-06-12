@@ -1,9 +1,12 @@
 <template>
-  <div class="home" style="display: flex;">
+  <div class="home">
     <!-- <img alt="Vue logo" src="../assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/> -->
-    <menu-nav></menu-nav>
-    <router-view></router-view>
+    <header-nav></header-nav>
+    <section style="display: flex;">
+      <menu-nav></menu-nav>
+      <router-view></router-view>
+    </section>
   </div>
 </template>
 
