@@ -3,20 +3,20 @@
     <el-menu
       :default-active="defaultMenu"
       class="el-menu-vertical-demo">
-      <div v-for="(menu, index) in menu" :key="index">
-        <el-submenu :index="menu.name" v-if="menu.children">
+      <div v-for="(menu, index) in filterMenu" :key="index">
+        <el-submenu :index="menu.name" v-if="menu.children && menu.meta.hideInMenu">
           <template slot="title">
             <i class="el-icon-location"></i>
-            <span>{{menu.title}}</span>
+            <span>{{menu.meta.title}}</span>
           </template>
-          <el-menu-item :index="childMenu.name" v-for="(childMenu, i) in menu.children" :key="i" @click="toRoute(childMenu.name)">
+          <el-menu-item :index="childMenu.name" v-for="(childMenu, i) in menu.children" :key="i" v-if="childMenu.meta.hideInMenu" @click="toRoute(childMenu.name)">
             <i class="el-icon-setting"></i>
-            <span slot="title">{{childMenu.title}}</span>
+            <span slot="title">{{childMenu.meta.title}}</span>
           </el-menu-item>
         </el-submenu>
         <el-menu-item v-else :index="menu.name" @click="toRoute(menu.name)">
           <i class="el-icon-setting"></i>
-          <span slot="title">{{menu.title}}</span>
+          <span slot="title">{{menu.meta.title}}</span>
         </el-menu-item>
       </div>
     </el-menu>
@@ -65,12 +65,13 @@ export default class MenuNav extends Vue {
   }
 
   private mounted() {
-    // this.staffRoles = this.$store.state.auth.roles || sessionStorage.getItem('roles')
-    // const addRoutes: any = this.$store.state.auth.addRoutes
-    // this.filterMenu = addRoutes[0].children.filter((item: any) => {
-    //   return item.meta.title
-    // })
-    // console.log('====', this.filterMenu)
+    this.staffRoles = this.$store.state.permission || sessionStorage.getItem('permission')
+    const addRoutes: any = this.$store.state.addRoutes
+    this.filterMenu = addRoutes[0].children.filter((item: any) => {
+      console.log('item', item)
+      return item.meta.title
+    })
+    console.log('====', this.filterMenu)
 
     // UserApi.getMenu().then((res: any) => {
     //   console.log('res.data', res.data.data)

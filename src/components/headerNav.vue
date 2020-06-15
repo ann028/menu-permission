@@ -3,19 +3,18 @@
     <div class="logo flex1">
       head
     </div>
-    <div class="user cur-pointer">
+    <!-- <div class="user cur-pointer">
       <section>
         <div style="display: flex; align-items: center;">
           <span style="margin-right: 10px;">annaroles</span>
           <el-avatar icon="el-icon-user-solid"></el-avatar>
         </div>
-        <!-- <div class="user-info">{{user.userName}}</div> -->
         <div class="popover" style="line-height: 20px;">
           <i class="el-icon-s-tools" style="font-size: 20px;"></i>
           <span  style="margin-left: 10px; font-size: 16px; cursor: pointer;">退出登录</span>
         </div>
       </section>
-    </div>
+    </div> -->
   </div>
 </template>
 

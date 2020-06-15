@@ -15,12 +15,13 @@ import * as UserApi from '../api/user'
 export default class Login extends Vue{
   private userInfo: any = {}
 
-  private toLoginIn() {
+  private  toLoginIn() {
     UserApi.getUserInfo().then((res: any) => {
       if (res.data.success) {
         this.$store.dispatch('getUserLogin', res.data.data)
-        this.$router.push({ path: '/'})
-        this.$message.success('登陆成功！')
+        this.$store.dispatch('getPermission')
+        // this.$router.push({ name: 'Home'})
+        // this.$message.success('登陆成功！')
       } else {
         this.$message.error(res.data.msg)
       }
