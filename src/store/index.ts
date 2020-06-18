@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { contantRouteMap, asyncRouteMap } from '../router/index';
+import router from '@/router/index';
 import * as UserApi from '../api/user'
 import {Message} from 'element-ui'
 
@@ -63,6 +64,11 @@ export default new Vuex.Store({
       state.user = data
       state.userId = data.userId
       state.token = data.token
+
+      window.sessionStorage.setItem('userId', data.userId)
+      window.sessionStorage.setItem('token', data.token)
+      window.sessionStorage.setItem('permission', data.permission)
+
     },
     SET_PERMISSION: (state: any, data: any) => {
       state.permission = data
@@ -71,16 +77,19 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    getUserLogin: ({commit}, data) => {
+    getUserLogin: ({commit, dispatch}, data) => {
       commit('SET_USER', data)
-      // this.dispatch('getPermission')
+      // dispatch('getPermission')
       // userApi.getPermission().then((res: any) => {
       //   if(res.data.success) {
       //     commit('SET_PERMISSION', res.data.data.toString())
       //   }
       // })
-      window.sessionStorage.setItem('userId', data.userId)
-      window.sessionStorage.setItem('token', data.token)
+      // window.sessionStorage.setItem('userId', data.userId)
+      // window.sessionStorage.setItem('token', data.token)
+
+      // router.push({ name: 'Home'})
+      // Message.success('登陆成功！')
     },
     getUserInfo({commit}: any) {
       UserApi.getUserInfo().then((res: any) => {
@@ -98,6 +107,7 @@ export default new Vuex.Store({
       })
     },
     GenerateRoutes({commit}, data) {
+      console.log('=======permission data======', data)
       return new Promise((resolve) => {
         const permission = data;
         const asyncChildRouterMap: any = asyncRouteMap[0].children;
@@ -129,6 +139,9 @@ export default new Vuex.Store({
       userApi.getPermission().then((res: any) => {
         if(res.data.success) {
           commit('SET_PERMISSION', res.data.data.toString())
+        } else {
+          Message.warning(`获取用户权限失败，请重新登录`);
+          router.push({path: '/login'});
         }
       })
     },

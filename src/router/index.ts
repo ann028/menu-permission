@@ -3,8 +3,12 @@ import VueRouter, { RouteConfig } from 'vue-router'
 import Home from '../views/Home.vue'
 import Index from '@/components/DefaultIndex.vue'
 import store from '../store/index'
+import * as UserApi from '@/api/user'
 
 Vue.use(VueRouter)
+/**
+ * hideInMenu: false; 是否渲染为左侧菜单栏
+ */
 
 // const routes = [
 //   {
@@ -83,42 +87,13 @@ export const asyncRouteMap = [
     name: 'Home',
     component: Home,
     children: [
-      // {
-      //   path: '/project',
-      //   name: 'projectManage',
-      //   component: Index,
-      //   meta: {
-      //     title: '首页',
-      //     permission: ['prm1000', 'prm1100'],
-      //   },
-      //   children: [
-      //     {
-      //       path: '/project',
-      //       name: 'projectManage',
-      //       component: () => import('../views/projects.vue'),
-      //       meta: {
-      //         permission: ['prm1000', 'prm1100'],
-      //         title: '项目管理',
-      //       },
-      //     },
-      //     {
-      //       path: '/addProject',
-      //       name: 'addProject',
-      //       component: () => import('../views/AddProjects.vue'),
-      //       meta: {
-      //         permission: ['prm1000'],
-      //         title: '添加项目',
-      //       }
-      //     },
-      //   ],
-      // },
       {
         path: '/project',
         name: 'projectManage',
         redirect: '/project',
         component: Index,
         meta: {
-          permission: ['prm7000', 'prm1100'],
+          permission: ['prm7000', 'prm1100', 'prm1000'],
           title: '项目管理',
           hideInMenu: false,
         },
@@ -137,7 +112,7 @@ export const asyncRouteMap = [
             name: 'addProject',
             component: () => import('../views/AddProjects.vue'),
             meta: {
-              permission: ['prm1000'],
+              permission: ['prm3000'],
               title: '添加项目',
             }
           },
@@ -148,7 +123,7 @@ export const asyncRouteMap = [
         name: 'publisherManage',
         component: () => import('../views/Publisher.vue'),
         meta: {
-          permission: ['prm2000', 'prm1100'],
+          permission: ['prm2000', 'prm1100', 'prm8000'],
           title: '发行人管理',
         }
       },
@@ -158,7 +133,7 @@ export const asyncRouteMap = [
         component: Index,
         meta: {
           title: '账号管理',
-          permission: ['prm1000', 'prm7100'],
+          permission: ['prm1000', 'prm7100', 'prm8000'],
           hideInMenu: true,
         },
         children: [
@@ -168,29 +143,9 @@ export const asyncRouteMap = [
             component: () => import('../views/user/RoleManage.vue'),
             meta: {
               title: '角色管理',
-              permission: ['prm1000', 'prm8000', 'prm7100'],
+              permission: ['prm1000', 'prm7100', 'prm8000'],
               hideInMenu: true,
             },
-            // children:[
-            //   {
-            //     path: '/roleManage1',
-            //     name: 'roleManage1',
-            //     component: () => import('../views/user/RoleManage.vue'),
-            //     meta: {
-            //       title: '角色管理',
-            //       permission: ['prm8000', 'prm7100'],
-            //     },
-            //   },
-            //   {
-            //     path: 'addRole',
-            //     name: 'addRole',
-            //     component: () => import('../views/user/AddRole.vue'),
-            //     meta: {
-            //       title: '添加角色',
-            //       permission: ['prm8000', 'prm7100'],
-            //     }
-            //   },
-            // ]
           },
           {
             path: '/addRole',
@@ -198,8 +153,8 @@ export const asyncRouteMap = [
             component: () => import('../views/user/AddRole.vue'),
             meta: {
               title: '添加角色',
-              permission: ['prm8000', 'prm7100'],
-              hideInMenu: true,
+              permission: ['prm8000', 'prm1000'],
+              hideInMenu: false,
             }
           },
           {
@@ -208,7 +163,7 @@ export const asyncRouteMap = [
             component: () => import('../views/user/userManage.vue'),
             meta: {
               title: '用户管理',
-              permission: ['prm8000', 'prm7100', 'prm1100'],
+              permission: ['prm8000', 'prm7100',],
               hideInMenu: true,
             }
           },
@@ -231,7 +186,6 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   const token = window.sessionStorage.getItem('token')
-  console.log(store.state.permission)
   const permission = store.state.permission || window.sessionStorage.getItem('permission')
   console.log('=====', permission)
   if(token) {

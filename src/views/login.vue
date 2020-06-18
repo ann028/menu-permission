@@ -19,9 +19,10 @@ export default class Login extends Vue{
     UserApi.getUserInfo().then((res: any) => {
       if (res.data.success) {
         this.$store.dispatch('getUserLogin', res.data.data)
-        this.$store.dispatch('getPermission')
-        // this.$router.push({ name: 'Home'})
-        // this.$message.success('登陆成功！')
+        // this.$store.dispatch('getPermission')
+        this.$message.success('登陆成功！')
+        this.$router.push({ name: 'Home'})
+        // history.go(0)
       } else {
         this.$message.error(res.data.msg)
       }

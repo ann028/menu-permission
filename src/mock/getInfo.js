@@ -2,7 +2,8 @@ const userInfo = {
   token: 'asasas@3wec',
   userId: 23,
   userName: 'Anna',
-  roles: 'staff'
+  roles: 'staff',
+  permission: ['prm1000']
 }
 export default {
   'get|/api/getInfo': option => {
